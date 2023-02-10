@@ -8,7 +8,7 @@ const Header = () => {
         <div className="container-xxl">
           <div className="row">
             <div className="col-6">
-              <p className="text-white">Miễn phí giao hàng khi mua trên 200k</p>
+              <p className="text-white">Miễn phí giao hàng khi mua trên 500k</p>
             </div>
             <div className="col-6">
               <p className="text-end text-white mb-0">
