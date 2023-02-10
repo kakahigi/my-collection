@@ -1,0 +1,568 @@
+/* ===============================================================
+
+common scripts
+
+=============================================================== */
+
+  window.onunload = function(){};
+
+  var Common = function(){};
+
+  Common = {
+
+    fadeAlpha : function(){
+
+      $('.fadeAlpha').hover(function(){
+        $(this).find('*').stop().fadeTo(0,0.7);
+      },
+      function(){
+        $(this).find('*').stop().fadeTo('fast',1);
+      });
+
+    },
+
+    accordion : function(){
+
+      $('.accordion').find('dt').not('.other').on("click", function() {
+        $(this).toggleClass('active')
+          .next('dd').slideToggle()
+            .siblings('dd:visible').slideUp()
+              .prev('dt').removeClass('active');
+
+        if($(this).hasClass('active')){
+          var on = $(this).find('img').attr('src').replace('_off','_on');
+          $(this).find('img').attr('src', on);
+        }else{
+          var off = $(this).find('img').attr('src').replace('_on','_off');
+          $(this).find('img').attr('src', off);
+        }
+      });
+
+    },
+
+    tab : function(){
+
+      var $tab = $('div.inner');
+      var $nav = $tab.find('.tabNav a');
+      var $tabBody = $tab.find('.tabBody');
+
+      $tabBody.not(':first').hide();
+      $nav.eq(0).parent().addClass('active');
+
+      $nav.click(function(){
+        var $this = $(this);
+        var targetTabId = $this.attr('href');
+
+        $nav.parent().removeClass('active');
+        $tabBody.hide();
+        $this.parent().addClass('active');
+        $(targetTabId).fadeIn(1000);
+
+        return false;
+      });
+
+    },
+
+    smoothScroll : function(){
+
+      $('a[href^=#]').click(function() {
+        $('html,body').animate({ scrollTop:
+          $($(this).attr('href')).offset().top }, 'slow','swing');
+          return false;
+        });
+
+    },
+
+    updatePosition : function(){
+
+      contentTop = $content.offset().top + $elem.outerHeight() + 15;
+
+    },
+
+    pagetop : function(){
+
+      //指定位置でstaticに
+      $elem = $('.pagetop'),
+      $content = $('.pagetop'),
+      $win = $(window);
+
+      contentTop = 0;
+
+      function update(){
+        if( $win.scrollTop() + $win.height() > contentTop ){
+          $elem.addClass('static');
+        } else if( $elem.hasClass('static') ){
+          $elem.removeClass('static');
+        }
+      }
+
+      $win.load(function(){
+        Common.updatePosition();
+          update();
+        })
+        .resize(function(){
+          Common.updatePosition();
+          update();
+        })
+        .scroll(function(){
+          update();
+        });
+
+      $('.pagetop span').hide();
+      $(window).scroll(function(){
+        if ($(this).scrollTop() > 100) {
+          $('.pagetop span').fadeIn();
+        } else {
+          $('.pagetop span').fadeOut();
+        }
+      });
+
+
+    },
+
+    currentNav : function(){
+
+      var url = window.location.pathname;
+
+      $('.nav.pg li a[href="'+url+'"]').parent().addClass('current');
+
+      var url = url.replace(/\w*\.html$/,'');
+      $('.nav.dr li a[href="'+url+'"]').parent().addClass('current');
+
+      if ( $('.nrp li.current').size() > 0 ) {
+        var $crimg = $('li.current').find("img[src*='_off']");
+        $crimg.attr('src', $crimg.attr("src").replace(/_off/,'_on'));
+      }
+
+      //CURRENT画像置換
+      $('.nrp').children('li').each(function(){
+
+        var off = $(this).find('img').attr('src'),
+             on = off.replace(/_off/, '_on');
+
+       if ( $(this).hasClass('current') ) {
+         $(this).find('img').attr('src', on);
+       }
+
+      });
+
+    },
+
+    rollover : function(){
+
+      $("nav img[src*='_on']").parents('li').addClass("current");
+
+      $("nav img,input[type='image'], .rollover").hover(function(){
+        if ($(this).attr("src")){
+          $(this).attr("src",$(this).attr("src").replace("_off.", "_on."));
+        }
+      },function(){
+        if ($(this).attr("src") && !$(this).parents('li').hasClass("current") ){
+          $(this).attr("src",$(this).attr("src").replace("_on.", "_off."));
+        }
+      });
+
+    },
+
+    popup : function(){
+
+      $('.popup').click(function(){
+        window.open(this.href, "WindowName","width=650,height=500,resizable=yes,scrollbars=yes");
+        return false;
+      });
+
+    },
+
+    searchBox : function(){
+
+      $('.search_box_toggle').click(function(){
+        $('#search_box').slideToggle(function(){
+          Common.updatePosition();
+        });
+        $(this).toggleClass('active');
+      });
+
+      $('.select_child').each(function(i, h){
+        if ( h.value != '' ){
+          $(this).removeAttr('disabled');
+        }
+      });
+
+      var pokemon2 = $('.select_child[name="pokemon2"]').html();
+      var cat2 = $('.select_child[name="cat2"]').html();
+
+      $('.select_parent').change(function(){
+
+        var val1 = $(this).val();
+
+        html = ( $(this).attr('name') == 'pokemon1' ) ? pokemon2 : cat2;
+
+        $(this).next('.select_child').html(html).find('option').each(function(){
+          var val2 = $(this).data('value');
+          if ( val1 != val2 ) {
+            $(this).not(':first-child').remove();
+          }
+        });
+
+        if($(this).val() == ""){
+          $(this).next('.select_child').attr('disabled', 'disabled');
+        } else {
+          $(this).next('.select_child').removeAttr('disabled');
+        }
+
+      });
+
+      $('input[type="reset"]').click(function(){
+        $('.select_child').attr('disabled', 'disabled');
+      });
+
+      if ( $('#contents').hasClass('not_found') ) {
+        $('#search_box').show();
+        $('.search_box_toggle').toggleClass('active')
+      }
+
+    },
+
+    topicPath : function(){
+
+      $('head').append('<style id="tpw"></style>');
+
+      $(window).on('load resize', function(){
+
+        var wW = $(window).width(),
+            tpW = parseInt(wW - $('.topic_path').find('h1').outerWidth()) / 2,
+            css = '.topic_path:after{width:' + tpW + 'px}';
+
+        $('#tpw').html(css);
+
+        $('.search_box_toggle').css('right', tpW + 11)
+
+      });
+
+    },
+
+    megaMene : function(){
+
+      $('#contents').append('<div class="ovaerlay"></div>');
+
+      var $ov = $('.ovaerlay'),
+          h = $('#wrap').height();
+
+      $ov.hide().height(h);
+
+      $('.menu').hover(
+        function(){
+          var $elem = $(this);
+          var t = setTimeout(function() {
+            $ov.fadeIn('fast');
+            $elem.parent().siblings().find('.megamenu').fadeOut('fast');
+            $elem.addClass('hover').find('.megamenu').stop().fadeIn('fast');
+          }, 300);
+          $(this).data('timeout', t);
+        },
+        function(){
+          var $elem = $(this);
+          $ov.fadeOut('fast');
+          $elem.addClass('hover').find('.megamenu').stop().fadeOut('fast');
+          clearTimeout($(this).data('timeout'));
+        }
+      );
+
+      $('.megamenu').find('.close img').click(function(){
+        $ov.fadeOut('fast');
+        $(this).parents('.megamenu').fadeOut('fast');
+        $('.menu').find('a').removeClass('hover');
+      });
+
+      $ov.click(function(){
+        $(this).fadeOut('fast');
+        $('.megamenu').fadeOut('fast');
+      })
+
+    },
+
+    recommender : function(){
+
+      $('.recommender').each(function(){
+
+        var $elem = $(this);
+        var id = $elem.data('json')
+
+        var le = $elem.data('length');
+        var le = ( le == undefined ) ? 11 : le;
+
+        $.ajax({
+            url: '/json/' + id + '.json',
+            dataType: 'json',
+            success : function(data){
+              $.each(data, function(i){
+                var rank = $elem.data('rank');
+                var rank = ( rank == 1 ) ? ' rank' + ('0' + parseInt(i + 1) ).slice(-2) : '';
+                var soldout = '';
+                if ( this.has_stock ){
+                    if ( this.has_stock == 0 ){
+                        var soldout = ' soldout';
+                    }
+                }
+
+                var content = '\
+                  <div class="item' + rank + soldout + '">\
+                    <a href="/' + this.url + '">\
+                      <p class="item-bg-top"></p>\
+                      <div class="inner">\
+                        <p class="item-photo"><img src="/' + this.img_url + '" width="192" height="164" alt=""></p>\
+                        <p class="name">' + this.name + '</p>\
+                        <p class="price">' + this.price + '円</p>\
+                      </div>\
+                      <p class="item-bg-btm"></p>\
+                    </a>\
+                  </div>';
+
+                $elem.append(content);
+
+                if ( i == le ) return false;
+              });
+            },
+            complete : function(){
+              setTimeout(function(){
+                Pages.topMatchHeight();
+                Pages.topOwlCarousel();
+                Common.updatePosition();
+              },500);
+            }
+        });
+
+      });
+
+    },
+
+
+    lazyload : function(){
+
+      $('img.lazy').lazyload({
+      	threshold: 200,
+      	effect: "fadeIn",
+        load : function(){
+          $(this).addClass('show');
+        }
+      });
+
+    },
+
+    spView : function(){
+
+      var sp = $('.toSpSite').size();
+      if ( sp == 1 ){
+
+        $('body').css({
+          'width' : '1000px',
+        });
+
+        $('#wrap').css({
+          'width' : '1000px',
+          'overflow' : 'hidden'
+        });
+
+      }
+
+    },
+
+    listAddCart : function(){
+
+      $(document).on('click','.execute',function(event){
+
+        var jan = $(this).siblings('.jan').val();
+        var qty = $(this).siblings('.qty').val();
+        //var $process = $(this).parent().siblings('.process');
+
+        //$process.html('処理中');
+
+        $.ajax({
+          url : '/api/request.php',
+          type : 'get',
+          data : {
+            method : 'add_cart',
+            j : jan,
+            qty : qty
+          }
+        }).done(function(response) {
+          if (response.match(/000/)) {
+            Common.trackPageView(jan);
+            Common.addCart(event);
+            //$process.html('カートに追加しました');
+          } else {
+            alert('カートに商品を追加することができませんでした。\n同時にご購入いただくことができない商品がカートに入っている可能性がございます。');
+            //$process.html('追加に失敗しました' + response);
+          }
+        }).fail(function() {
+          alert('接続に失敗しました');
+          //$process.html('接続に失敗しました');
+        });
+
+      });
+
+    },
+//------160819追加------
+    balloon : function(){
+
+      balloon = '\
+        <div class="add_cart_balloon">\
+          <p>カートに追加されました</p>\
+          <a href="'+cart_url_base+'">カートを見る</a>\
+        </div>\
+      ';
+
+      $('.add_cart_btn').before(balloon);
+      $('.execute').before(balloon);
+    },
+	trackPageView : function(jan){
+		try {
+			_etmc.push(["trackPageView", {"item": "c_"+jan}]);
+		} catch (e) {
+			console.log(JSON.stringify(e));
+		}
+	},
+	addcartgssa : function(prdcode,qty,amount){
+		GSSA.set("action", "cart");
+		GSSA.set("item", prdcode+","+qty+","+amount);
+		GSSA.set("amount", amount);
+		GSSA.send();
+	},
+
+
+
+    addCart : function(event){
+
+      $('.add_cart_balloon').fadeOut();
+
+      var $element = $(event.target);
+      var $balloon = $element.prev('.add_cart_balloon');
+      $balloon.fadeIn();
+
+      $balloon.hover(function() {
+        $(this).addClass('hover');
+      }, function() {
+        $(this).removeClass('hover');
+        fadeout();
+      });
+
+      fadeout();
+
+      function fadeout() {
+      	setTimeout(function(){
+          $balloon.not('.hover').fadeOut();
+      	},5000);
+      }
+
+    },
+//------/160819追加------
+    specialJson : function(){
+
+      $('.special_json').each(function(){
+
+        var $elem = $(this);
+        var id = $elem.data('json')
+
+        var le = $elem.data('length');
+        var le = ( le == undefined ) ? 11 : le;
+
+        $.getJSON('/json/' + id + '.json', function(data) {
+          $.each(data.items, function(i){
+            var rank = $elem.data('rank');
+            var rank = ( rank == 1 ) ? ' rank' + ('0' + parseInt(i + 1) ).slice(-2) : '';
+
+            var content ='\
+              <li>\
+                <a href="/' + data.items[i].url + '">\
+                  <img class="item_image" src="/static/product_image/' + data.items[i].img_url + '" alt="">\
+                </a>\
+                <p class="name" data-mh="item"><a href="/' + data.items[i].url + '">' + data.items[i].name + '</a></p>\
+                <p class="price">' + data.items[i].price + '円（税込）</p>\
+                <input type="hidden" class="jan" value="' + data.items[i].jan + '">\
+                <input type="hidden" class="qty" value="1">'
+                + balloon + /*160831追記*/'\
+                <input type="image" src="/static/image/detail/btn_cart.jpg" class="execute" value="カートに入れる">\
+                <p class="process"></p>\
+              </li>';
+
+            $elem.append(content);
+
+            if ( i == le ) return false;
+
+          });
+
+        }).always(function() {
+          $elem.find('.name').matchHeight();
+        });
+
+      });
+
+    },
+
+    //------/161110追加------start
+    specialJsonsGoDetail : function(){
+
+      $('.special_json_goDetail').each(function(){
+
+        var $elem = $(this);
+        var id = $elem.data('json')
+
+        var le = $elem.data('length');
+        var le = ( le == undefined ) ? 11 : le;
+
+        $.getJSON('/json/' + id + '.json', function(data) {
+          $.each(data.items, function(i){
+            var rank = $elem.data('rank');
+            var rank = ( rank == 1 ) ? ' rank' + ('0' + parseInt(i + 1) ).slice(-2) : '';
+
+            var content ='\
+              <li>\
+                <a href="/' + data.items[i].url + '">\
+                  <img class="item_image" src="/static/product_image/' + data.items[i].img_url + '" alt="">\
+                </a>\
+                <p class="name" data-mh="item"><a href="/' + data.items[i].url + '">' + data.items[i].name + '</a></p>\
+                <p class="price">' + data.items[i].price + '円（税込）</p>\
+                <a href="/' + data.items[i].url + '">\
+                  <img src="/static/image/detail/btn_detail.png" alt="商品詳細はこちら">\
+                </a>\
+              </li>';
+
+            $elem.append(content);
+
+            if ( i == le ) return false;
+
+          });
+
+        }).always(function() {
+          $elem.find('.name').matchHeight();
+        });
+
+      });
+
+    }
+    //------/161110追加------end//
+
+  }
+
+  $(function() {
+
+    Common.fadeAlpha();
+    Common.smoothScroll();
+    Common.pagetop();
+    Common.accordion();
+    //Common.tab();
+    Common.currentNav();
+    Common.rollover();
+    //Common.popup();
+    Common.searchBox();
+    Common.topicPath();
+    Common.megaMene();
+    Common.recommender();
+    Common.lazyload();
+    Common.spView();
+    Common.listAddCart();
+    Common.balloon(); //160819追加
+    Common.specialJson();
+    Common.specialJsonsGoDetail();//161110追加
+
+  });

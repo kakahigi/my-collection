@@ -1,0 +1,388 @@
+/* ===============================================================
+
+pages scripts
+
+=============================================================== */
+
+  window.onunload = function(){};
+
+  var Pages = function(){};
+
+  Pages = {
+
+    owlCarousel : function(){
+
+      if($('#banner').hasClass('owl-carousel')){
+        $('#banner').owlCarousel({
+          center : true,
+          loop : true,
+          autoplay : true,
+          autoplayHoverPause : true,
+          smartSpeed : 1000,
+          autoWidth : true,
+          margin : 20
+        });
+      }
+
+      /*
+      //ranking
+      $('.ranking-list').owlCarousel({
+        margin :0,
+        nav : true,
+        items : 4
+      });
+      */
+
+      //top
+      $('#topSlider').owlCarousel({
+        margin :0,
+        nav : true,
+        dots : false,
+        loop : true,
+        center : true,
+        autoWidth : true,
+        items : 3,
+        autoplay : true,
+        smartSpeed: 1000
+      });
+
+      $('#topicksSlider').owlCarousel({
+        margin :0,
+        nav : false,
+        dots : true,
+        center : true,
+        loop : true,
+        autoWidth : true,
+        items : 3
+      });
+
+      if ( $('.characters').find('li').size() > 3 ){
+
+        $('.characters').owlCarousel({
+          loop : true,
+          dots : false,
+          nav : true,
+          items : 3,
+        });
+
+      }
+
+    },
+
+    matchHeight: function(){
+
+      $('.ranking-list .item .inner').matchHeight();
+      $('.regi_box, .login_box').matchHeight();
+      $('#specialList ul li').matchHeight();
+
+      setTimeout(function(){
+        $('.dv_rc_name').matchHeight();
+      },500);
+
+    },
+
+    listSwitch : function(){
+
+      var switchKey = $.cookie('switchKey');
+      switchKey = ( switchKey == undefined ) ? 'square' : switchKey;
+
+      $('.item_list').removeClass('square').removeClass('detail').addClass(switchKey);
+
+      var $sort = $('.sort');
+      var $btn = $sort.find('.' + switchKey).find('img');
+      var $sib = $sort.find('.' + switchKey).find('img').parent().siblings().find('img');
+
+      if ( $sort.find('.square').size() == 1 ){
+        $btn.attr('src', $btn.attr('src').replace('_off.',  '_on.'));
+        $sib.attr('src', $sib.attr('src').replace('_on.',  '_off.'));
+      }
+
+      $sort.find('.square, .detail').click(function(){
+
+        var listClass = $(this).attr('class');
+        $.cookie('switchKey', listClass, { expires: 7 });
+
+        $('.item_list').removeClass('square').removeClass('detail').addClass(listClass);
+        $('.item').matchHeight();
+
+        var $img = $(this).find('img'),
+            src = $img.attr('src');
+            rep_on = src.replace('_off.',  '_on.');
+
+        $img.attr('src', rep_on);
+        $(this).siblings().find('img').attr('src', $(this).siblings().find('img').attr('src').replace('_on.',  '_off.'));
+
+        Common.updatePosition();
+
+      });
+
+    },
+
+    elevateZoom : function(){
+
+      $("#zoom").elevateZoom({
+        gallery:'tmb',
+        cursor: 'pointer',
+        galleryActiveClass: "active",
+        imageCrossfade: true,
+        zoomWindowWidth: 520,
+        zoomWindowHeight: 520,
+        zoomWindowFadeIn: true
+        //loadingIcon: "http://www.elevateweb.co.uk/spinner.gif"
+      });
+
+      /*
+      $('.zoom_controls').find('a').click(function(){
+
+        var $tmb = $('#tmb').find('.active').parent('li').index();
+        console.log($tmb)
+
+      });
+      */
+
+      $('.zoom_controls').find('.next').click(function(){
+        $('#tmb').find('.active').parent().next().find('a').trigger('click');
+        return false;
+      });
+
+      $('.zoom_controls').find('.prev').click(function(){
+        $('#tmb').find('.active').parent().prev().find('a').trigger('click');
+        return false;
+      });
+
+      var disable = $('#tmb').find('a').eq(0).data('zoom-image');
+      $(window).on('load', function(){
+        zoomDisable(disable);
+      });
+
+      $('#tmb').find('a').click(function(){
+        var disable = $(this).data('zoom-image');
+        zoomDisable(disable);
+      });
+
+      function zoomDisable(disable){
+        if ( disable == undefined || disable == '' ){
+          $('.zoomContainer').addClass('zoomDisable');
+        } else {
+          $('.zoomContainer').removeClass('zoomDisable');
+        }
+      }
+
+    },
+
+    tooltip : function(){
+
+      $('.tooltip').tooltipster({
+        contentAsHTML: true,
+        interactive: true
+      });
+
+    },
+
+    rankingVisible : function(){
+
+      var $rankBt = $('.ranking_bt');
+      $('#ranking1_bt').find('span').addClass('current');
+
+      $rankBt.click(function(){
+        var i = $(this).index();
+        if ( i == 0 ){
+          $('.box_wrap').show();
+        } else {
+          $('#ranking' + i ).show()
+            .siblings('.box_wrap').hide();
+        }
+        $rankBt.find('span').removeClass('current');
+        $(this).find('span').addClass('current');
+
+      });
+
+    },
+
+    topOwlCarousel : function(){
+
+      $('.topSlideList').each(function(){
+        $(this).owlCarousel({
+          margin :0,
+          nav : true,
+          items : 4
+        });
+      });
+
+    },
+
+    topMatchHeight: function() {
+
+      //$('.recommender .item .name').matchHeight();
+      $('.topSlideList .item .inner').matchHeight();
+      //$('.dv_rc_name').matchHeight();
+
+    },
+
+  	accordion : function(){
+
+      $('.accordion').find('.acc-heading').not('.other').on("click", function() {
+        $(this).toggleClass('active')
+          .next('div').slideToggle()
+            .siblings('div:visible').slideUp()
+              .prev('.acc-heading').removeClass('active');
+
+        if($(this).hasClass('active')){
+          var on = $(this).find('img').attr('src').replace('_off','_on');
+          $(this).find('img').attr('src', on);
+        }else{
+          var off = $(this).find('img').attr('src').replace('_on','_off');
+          $(this).find('img').attr('src', off);
+        }
+      });
+  	},
+
+    isotope : function(){
+
+      var $grid = $('#pokemon_list').isotope({
+          getSortData: {
+            num: '[data-num]',
+            value: '[data-value]',
+            name: '[data-name]',
+            kana: '[data-kana]'
+          }
+      });
+
+      $('.syllabary').find('[data-filter="*"]').addClass('current');
+
+      $('.syllabary').find('button').click(function(){
+        $('#filter_text').val('');
+        $('.syllabary').find('.current').removeClass('current');
+        $(this).addClass('current');
+        var selector = $(this).attr('data-filter');
+        var selector = ( selector != '*' ) ? '[data-value="' + selector + '"]' : '*';
+        filtering(selector);
+        return false;
+      });
+
+      $('#filter_text').keydown(function() {
+        $('.syllabary').find('.current').removeClass('current');
+        var selector = $(this).val();
+        if ( selector.match(/\d/) ) {
+          selector = '[data-num*="' + selector + '"]';
+        } else if ( selector.match(/[ぁ-ん]/) ) {
+          selector = '[data-kana*="' + selector + '"]';
+        } else if ( selector.match(/^[ァ-ヶ]+$/)  ){
+          selector = '[data-name*="' + selector + '"]';
+        } else {
+          selector = '*';
+        }
+        filtering(selector);
+      });
+
+      $('#sort_selector').change(function() {
+
+        var selector = $(this).val().match(/ascend|descend$/);
+        var data = $(this).val().match(/num|value|name/);
+        var sort = ( $(this).val().match(/_ascend$/) ) ? true : false;
+
+        $grid.isotope({
+          sortBy: data,
+          sortAscending : sort
+        });
+
+      });
+
+      $grid.isotope('on', 'layoutComplete', function () {
+
+        $('img.lazy').not('.show').lazyload({
+        	threshold: 200,
+        	effect: "fadeIn",
+          load : function(){
+            $(this).addClass('show');
+          }
+        });
+
+      });
+
+      function filtering(selector){
+        $grid.isotope({
+          filter: selector,
+          animationOptions: {
+            duration: 750,
+            easing: 'linear',
+            queue: false,
+          }
+        });
+
+        var isotopeInstance = $grid.data('isotope');
+        var le = isotopeInstance.filteredItems.length
+
+        $grid.data('isotope', notfound());
+
+        function notfound(){
+          if ( le == 0 ) {
+            $('.notfound').show();
+          } else {
+            $('.notfound').hide();
+          }
+        }
+
+        /*
+        // get Isotope instance
+        var isotopeInstance = $grid.data('isotope');
+        var le = isotopeInstance.filteredItems.length
+
+        $grid.isotope( 'on', 'layoutComplete', function(){
+          if ( le == 0 ) alert('ポケモンが見つかりませんでした、別の条件で検索してください。');
+        });
+        */
+      }
+
+    },
+
+    //160819追加
+    inputName : function(){
+
+      $parent = $('.item_detail figure');
+      $parent.prepend('<p class="name"><span></span></p>');
+
+
+      $('#inputName').on("keyup",function(){
+        val = $(this).val();
+        var limit = $(this).attr("maxlength");
+
+        if (val.length==limit) {
+          $(this).val(val.substr(0,limit));
+        }
+
+        $parent.find('.name span').text(val);
+      });
+
+    }
+
+  }
+
+  $(function() {
+
+    Pages.owlCarousel();
+    Pages.listSwitch();
+    Pages.elevateZoom();
+    Pages.tooltip();
+    Pages.matchHeight();
+    Pages.rankingVisible();
+    //Pages.isotope();
+  	Pages.accordion();
+    //Pages.inputName(); 160819追加
+
+  });
+
+    //ログインページ　パスワードの表示・非表示切替
+$(".toggle-password").click(function () {
+  // iconの切り替え
+  $(this).toggleClass("fa-eye fa-eye-slash");
+
+  // 入力フォームの取得
+  let input = $(this).parent().prev("input");
+  // type切替
+  if (input.attr("type") == "password") {
+      input.attr("type", "text");
+  } else {
+      input.attr("type", "password");
+  }
+});

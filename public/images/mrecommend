@@ -1,0 +1,85 @@
+
+(function(){
+    (function (c,items) {
+var hang=function(e,c,g,i){
+ if(!e) { return null; }
+ var d=document.createElement("DIV");
+ d.setAttribute("class", "dv_rc_items");
+ d.className = "dv_rc_items";
+var footer=e.lastChild;
+e.insertBefore( d, footer)
+ var a=document.createElement("A");
+ d.appendChild(a);
+ a.href=i.ct_url;
+ var ct=function(){
+  (function(c,i) {
+   var x=new Image(1,1);
+   x.onload=function(){if(x.complete){window.location=i.ct_url;}};
+   x.onreadystatechange=function(){if(x.readyState=="complete"){window.location=i.ct_url;}};
+   x.onerror=function(){window.location=i.ct_url;};
+   x.src=document.location.protocol+'//'+c.server+'/unitag/ct?m='+i.merch+'&cookie='+c.sess+'&i='+i.id+'&r='+c.rqid+'&random='+Math.floor(Math.random()*100000);
+   return false;
+  })(c,i);
+  return false;
+ };
+ (a.attachEvent)? a.attachEvent("onclick",ct): a.onclick=ct;
+ var imagediv=document.createElement("DIV");
+ imagediv.setAttribute("class", "dv_rc_img");
+ imagediv.className = "dv_rc_img";
+ a.appendChild(imagediv);
+ var img=document.createElement("IMG");
+ imagediv.appendChild(img);
+ img.alt="";
+ img.src=i.img_url;
+ var name_div=document.createElement("DIV");
+ name_div.setAttribute("class", "dv_rc_name");
+ name_div.className = "dv_rc_name";
+ a.appendChild(name_div);
+ name_div.innerHTML=i.title;
+ var description_div=document.createElement("DIV");
+ description_div.setAttribute("class", "dv_rc_description");
+ description_div.className = "dv_rc_description";
+ d.appendChild(description_div);
+ description_div.innerHTML=i.desc;
+ var price_div=document.createElement("DIV");
+ price_div.setAttribute("class", "dv_rc_price");
+ price_div.className = "dv_rc_price";
+ d.appendChild(price_div);
+ price_div.innerHTML=i.price;
+ return e;
+};
+var frame=function(c,g){
+ var e=document.getElementById(c.divid);
+ if(!e) { return null; }
+ var d=document.createElement("DIV");
+ e.appendChild(d);
+ d.setAttribute("class", "dv_recommend");
+ d.className = "dv_recommend";
+ var header=document.createElement("DIV");
+ header.setAttribute("class", "dv_rc_header");
+ header.className = "dv_rc_header";
+ d.appendChild(header);
+ var title=document.createElement("DIV");
+ title.setAttribute("class", "dv_rc_title");
+ title.className = "dv_rc_title";
+ d.appendChild(title);
+ var footer_div=document.createElement("DIV");
+ footer_div.setAttribute("class", "dv_rc_footer");
+ footer_div.className = "dv_rc_footer";
+ d.appendChild(footer_div);
+ return d;
+};
+var g={"fh":100,"fw":300,"h":100,"w":100,"m":2,"p":2,"b":1};
+if (items.length>0){
+d=frame(c,g);
+for (var i=0; i<items.length; i++) if(typeof items[i] != "undefined" && items[i] != null){ d=hang(d,c,g,items[i]); }
+}
+else{
+var div = document.getElementById("recommender_pc311");
+if (typeof div != "undefined" && div){
+ div.parentNode.removeChild(div);
+}
+}
+})
+({"sess": "CEL2vC4fbNjCW71DQD3x3t5xhdzOXyAZ", "divid": "recommender_pc311", "rqid": "1773504336", "server": "ac30.silveregg.net"},[{"is_backfill": false, "id": "4521329331027", "title": "\u30dd\u30b1\u30e2\u30f3\u30ab\u30fc\u30c9\u30b2\u30fc\u30e0 \u30bd\u30fc\u30c9\uff06\u30b7\u30fc\u30eb\u30c9 \u5f37\u5316\u62e1\u5f35\u30d1\u30c3\u30af \u30c0\u30fc\u30af\u30d5\u30a1\u30f3\u30bf\u30ba\u30de BOX", "desc": "", "price": "5,200\u5186", "img_url": "https://www.pokemoncenter-online.com/static/product_image/4521329331027/4521329331027_S.jpg", "ct_url": "https://www.pokemoncenter-online.com/?p_cd=4521329331027", "merch": "pokemon"}, {"is_backfill": false, "id": "4521329365695", "title": "\u30dd\u30b1\u30e2\u30f3\u30ab\u30fc\u30c9\u30b2\u30fc\u30e0 \u30bd\u30fc\u30c9\uff06\u30b7\u30fc\u30eb\u30c9 VSTAR&VMAX \u30cf\u30a4\u30af\u30e9\u30b9\u30c7\u30c3\u30ad \u30bc\u30e9\u30aa\u30e9", "desc": "", "price": "2,700\u5186", "img_url": "https://www.pokemoncenter-online.com/static/product_image/4521329365695/4521329365695_S.jpg", "ct_url": "https://www.pokemoncenter-online.com/?p_cd=4521329365695", "merch": "pokemon"}, {"is_backfill": false, "id": "4521329331010", "title": "\u30dd\u30b1\u30e2\u30f3\u30ab\u30fc\u30c9\u30b2\u30fc\u30e0 \u30bd\u30fc\u30c9\uff06\u30b7\u30fc\u30eb\u30c9 \u5f37\u5316\u62e1\u5f35\u30d1\u30c3\u30af Pok\u00e9mon GO BOX", "desc": "", "price": "5,200\u5186", "img_url": "https://www.pokemoncenter-online.com/static/product_image/4521329331010/4521329331010_S.jpg", "ct_url": "https://www.pokemoncenter-online.com/?p_cd=4521329331010", "merch": "pokemon"}, {"is_backfill": false, "id": "4521329373478", "title": "\u30dd\u30b1\u30e2\u30f3\u30ab\u30fc\u30c9\u30b2\u30fc\u30e0 \u30b9\u30ab\u30fc\u30ec\u30c3\u30c8&\u30d0\u30a4\u30aa\u30ec\u30c3\u30c8 \u30b9\u30bf\u30fc\u30bf\u30fc\u30bb\u30c3\u30c8ex \u30cb\u30e3\u30aa\u30cf&\u30eb\u30ab\u30ea\u30aaex", "desc": "", "price": "1,800\u5186", "img_url": "https://www.pokemoncenter-online.com/static/product_image/4521329373478/4521329373478_S.jpg", "ct_url": "https://www.pokemoncenter-online.com/?p_cd=4521329373478", "merch": "pokemon"}, {"is_backfill": false, "id": "4521329365879", "title": "\u30dd\u30b1\u30e2\u30f3\u30ab\u30fc\u30c9\u30b2\u30fc\u30e0 \u30bd\u30fc\u30c9&\u30b7\u30fc\u30eb\u30c9 \u5f37\u5316\u62e1\u5f35\u30d1\u30c3\u30af \u30c0\u30fc\u30af\u30d5\u30a1\u30f3\u30bf\u30ba\u30de", "desc": "", "price": "260\u5186", "img_url": "https://www.pokemoncenter-online.com/static/product_image/4521329365879/4521329365879_S.jpg", "ct_url": "https://www.pokemoncenter-online.com/?p_cd=4521329365879", "merch": "pokemon"}]);
+})();

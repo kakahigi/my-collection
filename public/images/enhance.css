@@ -1,0 +1,458 @@
+.scrollArea{
+	height: aute;
+	width:940px;
+	margin-bottom: 9em;
+}
+
+.cart_adding{
+	filter: alpha(opacity=60);
+	-moz-opacity:0.6;
+	opacity:0.6;
+}
+
+.mypage_wrap2 {
+  border: 1px solid #cdcdcd;
+  background: #fdfdfd;
+  padding: 20px;
+  margin-bottom: 50px;
+}
+
+#mypage_1st_anniv {
+  margin: auto;
+}
+
+#mypage_1st_anniv h2 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#mypage_1st_anniv h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 30px 0 10px;
+}
+
+#mypage_1st_anniv h4 {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background: gray;
+}
+
+#mypage_1st_anniv h4:not(:first-of-type) {
+  margin-top: 1em;
+}
+
+#mypage_1st_anniv a {
+  text-decoration: underline;
+}
+
+#mypage_1st_anniv #annivTerms {
+  width: 100%;
+  background: #fbfbfb;
+  border: 1px solid #b5b5b5;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#mypage_1st_anniv #annivTerms ul li {
+  text-indent: -1em;
+  padding-left: 1em;
+}
+
+#mypage_1st_anniv #annivTerms .app_products li {
+  text-indent: 0em;
+}
+
+#mypage_1st_anniv table {
+  border-collapse: collapse;
+  border: 1px #484848 solid;
+  margin-top: 1em;
+}
+
+#mypage_1st_anniv th,
+#mypage_1st_anniv td {
+  border: 1px #484848 solid;
+  text-align: left;
+  padding: 5px;
+  border-collapse: collapse;
+  text-indent: 0;
+}
+
+.mypage .box_wrap .inner .mypage_app_201702_4521329189918,
+.mypage .box_wrap .inner .mypage_app_201702_4521329182629,
+.mypage .box_wrap .inner .mypage_app_201702_4521329196909,
+.mypage .box_wrap .inner .mypage_app_201702_4521329199993,
+.mypage .box_wrap .inner .mypage_app_201702_4521329200057,
+.mypage .box_wrap .inner .mypage_app_201702_4521329200088,
+.mypage .box_wrap .inner .mypage_app_201702_4521329200118, .test .mypage_app_201702_4521329189918,
+.test .mypage_app_201702_4521329182629,
+.test .mypage_app_201702_4521329196909,
+.test .mypage_app_201702_4521329199993,
+.test .mypage_app_201702_4521329200057,
+.test .mypage_app_201702_4521329200088,
+.test .mypage_app_201702_4521329200118 {
+  border: 2px solid #b5b5b5;
+  padding: 15px;
+  border-radius: 16px;
+  margin-bottom: 40px;
+  background: #e8e8e8;
+}
+
+.mypage .box_wrap .inner .mypage_app_201702_4521329189918 p,
+.mypage .box_wrap .inner .mypage_app_201702_4521329182629 p,
+.mypage .box_wrap .inner .mypage_app_201702_4521329196909 p,
+.mypage .box_wrap .inner .mypage_app_201702_4521329199993 p,
+.mypage .box_wrap .inner .mypage_app_201702_4521329200057 p,
+.mypage .box_wrap .inner .mypage_app_201702_4521329200088 p,
+.mypage .box_wrap .inner .mypage_app_201702_4521329200118 p, .test .mypage_app_201702_4521329189918 p,
+.test .mypage_app_201702_4521329182629 p,
+.test .mypage_app_201702_4521329196909 p,
+.test .mypage_app_201702_4521329199993 p,
+.test .mypage_app_201702_4521329200057 p,
+.test .mypage_app_201702_4521329200088 p,
+.test .mypage_app_201702_4521329200118 p {
+  margin-bottom: 0;
+}
+
+.mypage .box_wrap .inner .itemList, .test .itemList {
+  margin-bottom: 10px;
+}
+
+.mypage .box_wrap .inner .itemList ul, .test .itemList ul {
+  font-size: 0;
+  border: 2px solid #d0d0d0;
+  width: 100%;
+  background: #fff;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.mypage .box_wrap .inner .itemList ul li, .test .itemList ul li {
+  display: inline-block;
+  font-size: 14px;
+  vertical-align: middle;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.mypage .box_wrap .inner .itemList ul li a, .test .itemList ul li a {
+  color: #1d57b5;
+}
+
+.mypage .box_wrap .inner .itemList ul li a:hover, .test .itemList ul li a:hover {
+  color: #f00;
+}
+
+.mypage .box_wrap .inner .itemList ul li:nth-child(1), .test .itemList ul li:nth-child(1) {
+  width: 15%;
+}
+
+.mypage .box_wrap .inner .itemList ul li.dispImage {
+  width: 30%;
+}
+
+.mypage .box_wrap .inner .itemList ul li:nth-child(1) img, .test .itemList ul li:nth-child(1) img {
+  max-width: 100%;
+  vertical-align: bottom;
+}
+
+.mypage .box_wrap .inner .itemList ul li:nth-child(2), .test .itemList ul li:nth-child(2) {
+  width: 35%;
+}
+
+.mypage .box_wrap .inner .itemList ul li:nth-child(3), .test .itemList ul li:nth-child(3) {
+  width: 25%;
+}
+
+.mypage .box_wrap .inner .itemList ul li:nth-child(4), .test .itemList ul li:nth-child(4) {
+  width: 25%;
+  font-size: 12px;
+}
+
+.application_btn {
+  box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.5);
+  background: -webkit-linear-gradient(top, #fab11e 5%, #fa7e1e 100%);
+  background: linear-gradient(to bottom, #fab11e 5%, #fa7e1e 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fab11e', endColorstr='#fa7e1e',GradientType=0);
+  background-color: #fab11e;
+  margin: 0 auto;
+  border: none;
+  border-radius: 8px;
+  display: block;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px 0px;
+  text-align: center;
+  width: 128px;
+}
+
+.application_btn:hover {
+  box-shadow: inset 0px 5px 17px -7px rgba(0, 0, 0, 0.3);
+}
+
+.maypage_app_after {
+  background-color: #a7a7a7;
+  margin: 0 auto 1em;
+  border: none;
+  border-radius: 8px;
+  display: block;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px 0px;
+  text-align: center;
+  width: 128px;
+}
+
+#lottery_sales_confirm {
+  margin: 0 auto 20px;
+}
+
+#lottery_sales_confirm h2 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#lottery_sales_confirm h3 {
+  font-size: 18px;
+  color: #FF0000;
+  font-weight: bold;
+  margin: 0 0 30px;
+}
+
+#lottery_sales_confirm h4 {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background: gray;
+}
+
+#lottery_sales_confirm h4:not(:first-of-type) {
+  margin-top: 1em;
+}
+
+#lottery_sales_confirm a {
+  text-decoration: underline;
+}
+
+#lottery_sales_confirm #annivTerms {
+  width: 100%;
+  background: #fbfbfb;
+  border: 1px solid #b5b5b5;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#lottery_sales_confirm #annivTerms ul li {
+  text-indent: -1em;
+  padding-left: 1em;
+}
+
+.lottery_application_btn {
+  box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.5);
+  background: -webkit-linear-gradient(top, #fab11e 5%, #fa7e1e 100%);
+  background: linear-gradient(to bottom, #fab11e 5%, #fa7e1e 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fab11e', endColorstr='#fa7e1e',GradientType=0);
+  background-color: #fab11e;
+  margin: 0 auto;
+  border: none;
+  border-radius: 8px;
+  display: block;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px 0px;
+  text-align: center;
+  width: 128px;
+}
+
+.mypage .box_wrap .inner .lottery_product_info {
+    width: 850px;
+    margin: 0 auto;
+    padding: 10px 0 20px;
+    overflow:hidden;
+    height:100%;
+}
+
+.mypage .box_wrap .inner .lottery_product_info figure {
+    position: relative;
+    float: left;
+    width: 340px;
+    padding: 20px 0 5px;
+    border-radius: 5px;
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.mypage .box_wrap .inner .lottery_product_info figure .prd_image {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 10px;
+}
+
+.mypage .box_wrap .inner .lottery_product_info figure .prd_image img {
+    max-width: 300px;
+    height: 300px;
+    position: absolute;
+}
+
+.mypage .box_wrap .inner .lottery_product_info article {
+    float: right;
+    width: 470px;
+}
+
+.mypage .box_wrap .inner .lottery_product_info article h1 {
+    clear: both;
+    margin: 10px 0;
+    font-size: 20px;
+    font-size: 2rem;
+}
+
+.mypage .box_wrap .inner .lottery_product_info article .price {
+    display: inline-block;
+    font-size: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    vertical-align: top;
+}
+
+.mypage .box_wrap .inner .lottery_product_info article .price span {
+    font-size: 12px;
+    font-size: 1.2rem;
+}
+
+.mypage .box_wrap .inner .lottery_product_info .description {
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 13px;
+    font-size: 1.3rem;
+}
+
+.mypage .box_wrap .inner .application_commit {
+    font-family: "ÉqÉâÉMÉmäpÉS Pro W3", "Hiragino Kaku Gothic Pro", "ÉÅÉCÉäÉI", Meiryo, "ÇlÇr ÇoÉSÉVÉbÉN", sans-serif;
+    width: 100%;
+    height: 56px;
+    display: inline-block;
+    font-size: 22px;
+    margin: 0 auto;
+    text-align: center;
+    border: none;
+    color: #FFF;
+    background: url(/static/image/cart/btnBG_nextStep02.png) center no-repeat;
+}
+
+.mypage .box_wrap .inner .application_disabled {
+    font-family: "ÉqÉâÉMÉmäpÉS Pro W3", "Hiragino Kaku Gothic Pro", "ÉÅÉCÉäÉI", Meiryo, "ÇlÇr ÇoÉSÉVÉbÉN", sans-serif;
+    width: 100%;
+    height: 56px;
+    display: inline-block;
+    font-size: 22px;
+    margin: 0 auto;
+    text-align: center;
+    border: none;
+    color: #333;
+    background: url(/static/image/cart/btnBG_continue01.png) center no-repeat;
+}
+
+.mypage .box_wrap .inner .check_area {
+    margin: 30px auto 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+}
+
+.mypage .box_wrap .inner .app_thanks span {
+    font-size: 20px;
+}
+
+.mypage .box_wrap .inner .application_info {
+    width: 80%;
+    display: table;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin: 30px auto;
+}
+
+.mypage .box_wrap .inner .application_info .app_row {
+    display: table-row;
+    border: 1px solid;
+}
+
+.mypage .box_wrap .inner .application_info .app_head {
+    display: table-cell;
+    width: 30%;
+    border: 1px solid;
+    background: rgb(133,186,205);
+    padding: 0.5em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.mypage .box_wrap .inner .application_info .app_content {
+    display: table-cell;
+    width: 70%;
+    border: 1px solid;
+    padding: 0.5em;
+    text-align: center;
+}
+
+.mypage .box_wrap .inner .customer_info {
+    width: 80%;
+    display: table;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin: 30px auto;
+    font-size: 18px;
+}
+
+.mypage .box_wrap .inner .customer_info .customer_row {
+    display: table-row;
+}
+
+.mypage .box_wrap .inner .customer_info .customer_head {
+    display: table-cell;
+    width: 20%;
+    padding: 0.5em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.mypage .box_wrap .inner .customer_info .customer_content {
+    display: table-cell;
+    width: 80%;
+    padding: 0.5em;
+}
+
+.mypage .box_wrap .inner .app_price_info {
+    width: 30%;
+    display: table;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin: 30px auto;
+    font-size: 18px;
+}
+
+.mypage .box_wrap .inner .app_price_info .app_price_row {
+    display: table-row;
+}
+
+.mypage .box_wrap .inner .app_price_info .app_price_head {
+    display: table-cell;
+    width: 60%;
+    padding: 0.5em;
+    font-weight: bold;
+}
+
+.mypage .box_wrap .inner .app_price_info .app_price_content {
+    display: table-cell;
+    width: 40%;
+    padding: 0.5em;
+    text-align: right;
+}
+
+.mypage section .inner.order_history .history ul.order_item_list{
+    vertical-align: middle;
+}

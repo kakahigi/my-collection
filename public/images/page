@@ -1,0 +1,170 @@
+
+
+   
+  function _silveregg_report(e) {
+    var x=new Image(1,1);
+    x.src='//ac30.silveregg.net/suite/report?m=pokemon&t='+(new Date()).getTime()+'&e='+escape(e);
+  }
+function _silveregg_3452791930() {
+
+  if(document.readyState === "complete") {
+    try {
+// Define function startswith in JavaScript
+if (typeof String.prototype.startswith != 'function') {
+  String.prototype.startswith = function (str){
+    return this.indexOf(str) == 0;
+  };
+};
+
+if (typeof String.prototype.finishwith != 'function') {
+  String.prototype.finishwith = function (str){
+    return this.indexOf(str) == this.length - 1;
+  };
+};
+
+var spider=
+function(url_prefix, check_hints_tag_id, check_hints_flag) {
+    // used to determine in the page has at least one hint
+    var has_hint = false
+        // Obtain all the specs present in the URL prefix, to use it later
+        // Since IE does not support map(), we have to do it the "C" way
+        // We obtain all &spec=somespec present in the url prefix e.g. ["&spec=pc311", "&spec=pc312", "&spec=pc313"]
+    var url_spec_commands = url_prefix.match(new RegExp(/\&spec\=[\w]+/g))
+        // Use a loop to remove the &spec= part
+    var all_specs = []
+    for (var i = 0; i < url_spec_commands.length; i++) {
+        all_specs.push(url_spec_commands[i].split("=")[1])
+    }
+    // We remove the spec command from the original url prefix, we add them back only if we find hints for them
+    var rcmd_url = url_prefix.replace(new RegExp(/\&spec\=[\w]+/g), "");
+    var items = [],
+        AllTaggedElements = document.getElementsByTagName('*'),
+        taggedElementId;
+    var hint = document.getElementById(check_hints_tag_id);
+    if (typeof hint !== "undefined" && hint) {
+        var specs = hint.getElementsByTagName('div');
+        for (var spec_position = 0; spec_position < specs.length; spec_position++) {
+            var spec = specs[spec_position];
+            if (typeof spec.id !== 'undefined' && spec.id.startswith("__se_spec_")) {
+                // For each spec found -> generate one recommendations request.
+
+                // Remove the initial part of the spec ID to obtain
+                // the internal Suite spec ID
+                var spec_suite_id = spec.id;
+                spec_suite_id = spec_suite_id.replace("__se_spec_", "");
+
+                // if the spec does not exist in the config, do not include it
+                if (all_specs.indexOf(spec_suite_id) == -1) {
+                    continue
+                } else {
+                    has_hint = true
+                }
+
+                // Add the spec to the URL
+                var add_param = "spec=" + escape(spec_suite_id);
+                if (rcmd_url.indexOf(add_param) == -1) {
+                    rcmd_url += "&" + add_param;
+                }
+
+                // Analyze each one of the spec HTML children to find
+                // parameters to send in the URL.
+                var parameters = spec.getElementsByTagName('span');
+
+                for (var parameter_position = 0; parameter_position < parameters.length; parameter_position++) {
+                    var parameter = parameters[parameter_position];
+
+                    if (typeof parameter.className !== 'undefined' && parameter.className.startswith("__se_")) {
+                        // Obtain the parameter name from the className
+                        var parameter_name = parameter.className
+                        parameter_name = parameter_name.replace("__se_", "");
+
+                        if (parameter_name == "xcat" || parameter_name == "cat") {
+                            var cats = parameter.innerHTML.trim().match(/^\[?([^\[\]]+)\]?$/)[1].split(',');
+                            for (var i = 0, len = cats.length; i < len; i++) {
+                                var p = cats[i].match(/['"]?([^'"]+)['"]?/)[1];
+                                rcmd_url += "&" + spec_suite_id + "_" + parameter_name + "=" + escape(p);
+                            }
+                        } else if (parameter_name != "prod") {
+                            // Attach the parameter to the URL
+                            rcmd_url += "&" + spec_suite_id + "_" + parameter_name + "=" + escape(parameter.innerHTML);
+                        } else {
+                            // The code calling this spider already adds the prod parameter
+                            // so we need to update it as only the product ids defined here
+                            // must be sent.
+                            rcmd_url = rcmd_url.replace(new RegExp("&" + spec_suite_id + "_prod=[^&]*", "g"), "");
+                            // Once removed all previous defined item IDs, we can add the
+                            // ones defined in the hint
+
+                            // We extract the item ids to send, this can be one item ID
+                            // or an array of ids
+                            var items_string = parameter.innerHTML;
+                            if (items_string.startswith('[') && items_string.finishwith(']')) {
+                                // String represents an array -> remove first and last characters "[...]"
+                                items_string = items_string.substring(1, items_string.length - 1);
+                            }
+                            var items = items_string.split(',');
+                            for (var i = 0; i < items.length; i++) {
+                                var item = items[i];
+                                rcmd_url += "&" + spec_suite_id + "_" + parameter_name + "=" + escape(item);
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+    }
+
+    // When check_hints is TRUE, we send ONLY specs found in the hint tags into the request
+    // However, if no hints were found, the request is not attached to the calling page (the spider gives up doing the request)
+
+    // When check_hints is FALSE, then we have to have all specs in the request, so the default values are used
+    // in case a spec was not included in the hints.
+    if (check_hints_flag === "False") {
+        var appstr = "";
+        // for IE compatibility reasons we use for loop instead of forEach
+        for (var j = 0; j < all_specs.length; j++) {
+            spec = all_specs[j];
+            // We check for missing specs, add them if nessesary
+            var spec_req_cmd = "&spec=" + spec;
+            if (rcmd_url.indexOf(spec_req_cmd) == -1) {
+                appstr = appstr.concat("&spec=", spec);
+            }
+        }
+        rcmd_url += appstr;
+    } else if (has_hint == false) {
+        // check_hints TRUE + no hints in page => spider gives up
+        return;
+    }
+
+    var rcmd_request = document.createElement('script');
+    rcmd_request.setAttribute('src', rcmd_url);
+    rcmd_request.setAttribute('type', 'text/javascript');
+    document.body.appendChild(rcmd_request);
+
+    return;
+};
+(function () {
+ var urlprefix='//ac30.silveregg.net/unitag/jsonp/mrecommend?merch=pokemon&cookie=CEL2vC4fbNjCW71DQD3x3t5xhdzOXyAZ&pgid=0&pgtype=pc_pddt&action=0&random=1675928698660&spec=pc311&spec=pc312';
+ var check_hints_tag_id='__se_hint';
+ var check_hints_flag='True';
+ spider(urlprefix, check_hints_tag_id, check_hints_flag);
+})();
+
+    } catch(e) {
+      _silveregg_report(e);
+    }
+  } else {
+    setTimeout(_silveregg_3452791930,50);
+  }
+};
+
+if(document.readyState == null && document.addEventListener) {
+  document.readyState = "loading";
+  document.addEventListener("DOMContentLoaded", handler = function() {
+    document.removeEventListener("DOMContentLoaded", handler, false);
+    document.readyState = "complete";
+  }, false );
+};
+_silveregg_3452791930();

@@ -1,0 +1,133 @@
+/*!
+ * view_history.js
+ *
+ * require => /contents/js/jquery.cookie.js
+ */
+;(function($){
+var ENV = {};
+var EXEC_CLASS = '#view_history';
+var COOKIE_KEY = 'vhsp';
+var SEP = ':';
+var GET_PARAM = 'p_cd';
+var PRD_LENGTH = 5;//PC=>5 SP=>4
+
+var getUrlVars = function(){
+	var vars = [], hash;
+	var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+	for(var i = 0; i <hashes.length; i++){
+		hash = hashes[i].split('=');
+		vars.push(hash[0]);
+		vars[hash[0]] = hash[1];
+	}
+	return vars;
+};
+
+var set_env = function(){
+	var loc = location.href;
+	ENV.path = '/';
+	ENV.site_path = '';
+	if(loc.indexOf('/sp/') >= 0){
+		ENV.path = '/sp';
+		ENV.site_path = '/sp'
+	}
+	ENV.domain = location.host;
+	ENV.protocol = location.protocol;
+	ENV.product = null;
+	if(getUrlVars()[GET_PARAM] != undefined){
+		ENV.product = getUrlVars()[GET_PARAM];
+	}
+};
+
+var get_cookie = function(){
+	var value = $.cookie(COOKIE_KEY);
+	arr = [];
+	if(value != undefined){
+		arr = value.split(SEP);
+	}
+	return arr;
+};
+
+var set_cookie = function(val){
+
+    //2020.02.25 Start
+    var items = get_cookie();
+    var saveCookie = [];
+    var i = 0;
+    var j = 0;
+    var nCount = 0;
+    var setFlg = true;
+    
+    var sameParam = [];
+    var chkIndex = 0;
+    
+    for (i=0; i<items.length; i++) {
+        chkIndex =  $.inArray(ENV.product, items, chkIndex);
+        if (chkIndex == -1) break;
+        sameParam.push(chkIndex);
+        chkIndex++;
+    }
+    
+    if (sameParam.length > 0) {
+        
+        for(i = 0; i < items.length; i++) {
+            setFlg = true;
+            for (j = 0; j < sameParam.length; j++) {
+                if (i == sameParam[j]) {
+                   setFlg = false;
+                }
+            }
+            if (setFlg == true) {
+                saveCookie[nCount] = items[i];
+                nCount++;
+            }
+        }
+        
+        $.removeCookie(COOKIE_KEY);
+        
+        $.cookie(COOKIE_KEY, saveCookie.join(SEP), {expires:365,path:ENV.path});
+    }
+    //2020.02.25 End
+    
+	var cookies = get_cookie();
+	cookies.unshift(val);
+	if(cookies.length > PRD_LENGTH+1){
+		cookies.pop();
+	}
+	$.cookie(COOKIE_KEY,cookies.join(SEP),{expires:365,path:ENV.path});
+	return cookies;
+};
+
+var add_history = function(){
+	if(ENV.product == null) return false;
+	if(get_cookie()[0] == ENV.product) return false;
+	set_cookie(ENV.product);
+};
+
+var show_history = function(){
+	if(!$(EXEC_CLASS).length > 0) return false;
+	var items = get_cookie();
+	if(items.length == 0) return false;
+
+	var insert = '';
+	insert += '<div class="dv_recommend">';
+	insert += '<div class="dv_rc_header"></div><div class="dv_rc_title"></div>';
+	$.each(items,function(i,e){
+		if(i>=PRD_LENGTH){
+			return;
+		}
+		insert += '<div class="dv_rc_items">';
+		insert += '<a href="' + ENV.protocol + '//' + ENV.domain + ENV.site_path + '/?p_cd=' + e + '">';
+		insert += '<div class="dv_rc_img">';
+		insert += '<img alt="" src="' + ENV.protocol + '//' + ENV.domain + ENV.site_path + '/static/product_image/' + e + '/' + e + '_S.jpg">';
+		insert += '</div></a></div>';
+	});
+	insert += '<div class="dv_rc_footer"></div></div>';
+	$(EXEC_CLASS).html(insert);
+};
+
+$(function(){
+	set_env();
+	show_history();
+	add_history();
+});
+})(jQuery);

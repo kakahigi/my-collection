@@ -1,0 +1,297 @@
+/**
+ * jquery.prime plugin for jQuery
+ *
+ * prime utility系プラグイン＋α
+ *
+ * Version: 1.0
+ * Requirements: jQuery v1.7.2 over
+ *
+ */
+(function($){
+	$(function() {
+		//onload実行
+		$.prime.imeControl();
+	});
+
+	//utility
+	$.prime = {
+		/**
+		 * IME On/Off 切り替え
+		 * テキストボックスのIME入力設定を自動化する
+		 * デフォルトIMEはON、IMEを切りたい場合はクラス名に「imeoff」を付与する
+		 * onload実行関数
+		 */
+		imeControl: function() {
+			$('input:text').each(function(){
+				if($(this).hasClass('imeoff')){
+					$(this).css("ime-mode", "inactive");
+				}else{
+					$(this).css("ime-mode", "active");
+				}
+			});
+		},
+		/* onload実行関数ここまで  */
+		/**
+		 * チェック対象が存在するか判定
+		 * @param {Object} obj チェック対象
+		 * @returns {Boolean} 存在する:true
+		 * undefined : false
+		 * null : false
+		 * 空のArray : false
+		 * 空の文字列 : false
+		 */
+		isNotNull : function(obj) {
+			if( obj == "undefined") return false;
+			if( obj == null ) return false;
+			if( obj.length == 0 ) return false;
+			return true;
+		},
+		/**
+		 * 配列判定を行う
+		 * 配列の場合のみTrueを返却する
+		 * @param {Object} Object
+		 * @return {String} 結果
+		 */
+		isArray: function(Object){
+			return Object && !(Object.propertyIsEnumerable('length')) && typeof Object === 'object' && typeof Object.length === 'number';
+		},
+		/**
+		 * 数値のカンマ区切りフォーマットを行う
+		 * prefixで指定した接頭語を付与する。
+		 * ex) $.prime.formatNumber(12345,'\') // \1,234
+		 * @param {Number} number 数値
+		 * @param {String} prefix 先頭につける記号
+		 * @return {String} 結果
+		 */
+		formatNumber: function(number,prefix){
+			 prefix = prefix || '';
+			 number += '';
+			 var splitStr = number.split('.');
+			 var splitL = splitStr[0];
+			 var splitR = splitStr.length > 1 ? '.' + splitStr[1] : '';
+			 var regx = /(\d+)(\d{3})/;
+			 while (regx.test(splitL)) {
+				 splitL = splitL.replace(regx, '$1' + ',' + '$2');
+			 }
+			 return prefix + splitL + splitR;
+		},
+		/**
+		 * 数値のカンマ区切りフォーマットを戻す
+		 * 数値とdotを以外を除き、数値型で返却する
+		 * @param {String} numberString カンマ区切り文字
+		 * @return {Number} 結果
+		 */
+		unformatNumber: function(numberString){
+			return numberString.replace(/([^0-9\.\-])/g,'')*1;
+		},
+		/**
+		 * 数値の0パディングを行う
+		 * @param {Number} number 数値
+		 * @param {Number} limit パディング桁数
+		 * @return {String} 結果
+		 */
+		toZeroPadding: function (number, limit) {
+			number = Number(number);
+			if (isNaN(number)) {
+				return null;
+			}
+			return (Array(limit).join('0') + number).slice(-limit);
+		},
+		/**
+		 * 空文字の場合に0を返却する
+		 * @param {String} str 文字
+		 * @return {String} 結果
+		 */
+		emptyToZero: function (str) {
+			if (str.length == 0) {
+				return '0';
+			}
+			return str;
+		},
+		/**
+		 * 指定した文字を全て置換する
+		 * @param {String} exp 置換対象文字列
+		 * @param {String} org 検索文字
+		 * @param {String} dest 置換文字
+		 * @return {String} 置換後の文字列
+		 */
+		replaceAll: function (exp, org, dest) {
+			return exp.split(org).join(dest)
+		},
+		/**
+		 * 指定した文字列の長さを取得する(全角2、半角1で計算)
+		 * @param {String} str 文字列
+		 * @return {Number} 文字幅
+		 */
+		strWide: function (str) {
+			r = 0;
+			l = str.length;
+			for (var i = 0; i < l ; i++) {
+				var c = str.charCodeAt(i);
+				// Shift_JIS: 0x0 ～ 0x80, 0xa0 , 0xa1 ～ 0xdf , 0xfd ～ 0xff
+				// Unicode : 0x0 ～ 0x80, 0xf8f0, 0xff61 ～ 0xff9f, 0xf8f1 ～ 0xf8f3
+				if ( (c >= 0x0 && c < 0x81) || (c == 0xf8f0) || (c >= 0xff61 && c < 0xffa0) || (c >= 0xf8f1 && c < 0xf8f4)) {
+					r += 1;
+				} else {
+					r += 2;
+				}
+			}
+			return r;
+		},
+		/**
+		 * 特殊文字のエスケープを行う( ＆, ", <, > )
+		 * @param {String} str 特殊文字を含む可能性のある文字列
+		 * @return {String} エスケープ後の文字列
+		 */
+		escapeHtml: function (str) {
+			return str.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+		},
+		/**
+		 * IDで指定したエンティティ以下のInput、Select、TextAreaを非活性化
+		 * @param {String} id id属性 formのIDなど
+		 */
+		setReadonly: function (id) {
+			$('#'+id+' input').attr("disabled", "disabled");
+			$('#'+id+' textarea').attr("disabled", "disabled");
+			$('#'+id+' select').attr("disabled", "disabled");
+		},
+
+
+
+		/**
+		 * JQueryの$.ajaxのラッパー
+		 * @param {String} method Ajaxメソッド
+		 * @param {any[]} options ajaxオプション
+		 * @param {String} successFunc 成功時のコールバック関数名 引数はAjaxのレスポンスデータ
+		 * @param {String} errorFunc 失敗時のコールバック関数名
+		 * @return null この関数自体、結果は返却しない。コールバック関数で処理すること
+		 * @see http://semooh.jp/jquery/api/ajax/jQuery.ajax/options/
+		 */
+		ajax:(function (method,options,successFunc,errorFunc) {
+			var c = $.extend({
+				url: Configure.app.ajaxroot + '?method='+method,
+				type: "POST",
+				data: {}
+				}, options);
+			$.ajax({
+				url:  c.url,
+				type: c.type,
+				data: c.data,
+				success: function(ret){
+					if(successFunc!=undefined){successFunc(ret);};
+				},
+				error: function(request, status, thrown){
+					if(errorFunc!=undefined){errorFunc(request,thrown);}
+				}
+			});
+			return null;
+		})
+	};
+
+	//customize
+	$.prime.pok = {
+		/**
+		 * 日付妥当性チェック
+		 * @param {String} val (yyyy/mm/dd)
+		 */
+		isDate: function(val) {
+			try{
+				d = new Date(val);
+				dstr = ""+d.getFullYear()+'/'+$.prime.toZeroPadding(d.getMonth()+1,2)+'/'+$.prime.toZeroPadding(d.getDate(),2);
+				if(dstr==val){
+					return true;
+				}
+			}catch( e ){}
+			return false;
+		},
+		/**
+		 * 年齢計算
+		 * @param {Date} birthday  (yyyy/mm/dd)
+		 * @return {Number} age
+		 */
+		calcAge: function(birthday) {
+			var when = new Date();
+			try{
+				var b = new Date(birthday.getTime()).setFullYear(2000);
+				var w = new Date(when.getTime()).setFullYear(2000);
+			    return when.getFullYear() - birthday.getFullYear() - (w >= b ? 0: 1);
+
+			}catch( e ){}
+
+			return '';
+		}
+
+	};
+})(jQuery);
+
+//Contact us
+var bool_obj = new Boolean(true);
+
+$(function(){
+
+	var subjectValue = $('*[name=ask_item]').val();
+
+	if (subjectValue == 3){
+		// チェックを入れる
+		$('input[name="no_response_needed"]').prop('checked', true);
+		$('input[name="no_response_needed"]').prop('readonly', true);
+		$('input[name="no_response_needed"]').attr('onclick',"return false;");
+		bool_obj = false;
+	} else {
+		// チェックを外す
+		$('input[name="no_response_needed"]').prop('checked', false);
+		$('input[name="no_response_needed"]').prop('readonly', false);
+		$('input[name="no_response_needed"]').removeAttr('onclick');
+	}
+});
+$(function(){
+	function setInquiryContents(){
+
+		var str =
+'\
+再入荷をご希望される商品の商品詳細ページURLを貼り付けて、そのままお送りください。\n\
+\n\
+URL:\n\
+\n\
+\n\
+※ご希望のみの承りとなります。\n\
+再入荷の保証や再入荷をした場合に通知をするものではございません。また、個別にご返信は差し上げておりませんので、あらかじめ、ご了承ください。\
+'
+		var subjectValue = $('*[name=ask_item]').val();
+
+		if (subjectValue == 3){
+
+			var UserString = $('#ask_contents').val();
+
+			if(bool_obj == true){
+				if(UserString = null || UserString == ''){
+					$('#ask_contents').val(str);
+				}else{
+					var UserString = $('#ask_contents').val();
+					$('#ask_contents').val(UserString + "\n" + str);
+				}
+				bool_obj = false;
+			}else{
+				if(UserString = null || UserString == ''){
+					$('#ask_contents').val(str);
+				}else{
+					// Ignore
+				}
+			}
+
+			// チェックを入れる
+			$('input[name="no_response_needed"]').prop('checked', true);
+			$('input[name="no_response_needed"]').prop('readonly', true);
+			$('input[name="no_response_needed"]').attr('onclick',"return false;");
+		} else {
+			// チェックを外す
+			$('input[name="no_response_needed"]').prop('checked', false);
+			$('input[name="no_response_needed"]').prop('readonly', false);
+			$('input[name="no_response_needed"]').removeAttr('onclick');
+		}
+	}
+
+	$('*[name=ask_item]').change(function() {
+		setInquiryContents();
+	});
+});

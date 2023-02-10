@@ -1,0 +1,176 @@
+var Delighters = new function () { var t = this.dels = [], e = { attribute: "data-delighter", classNames: ["delighter", "started", "ended"], start: .75, end: .75, autoInit: !0 }; function s() { document.addEventListener("scroll", d); for (var s = document.querySelectorAll("[" + e.attribute + "]"), a = 0; a < s.length; a++) { var n = s[a], i = n.getAttribute(e.attribute, 2).split(";"), r = {}; r.start = e.start, r.end = e.end; for (var l = 0; l < i.length; l++) { var o = i[l].split(":"), c = o[0], u = isNaN(1 * o[1]) ? o[1] : 1 * o[1]; c && (r[c] = void 0 === u || u) } r.el = n, r.id = t.length, t.push(r), n.classList.add(e.classNames[0]), r.debug && (n.style.outline = "solid red 4px") } d() } function d() { for (var s = window.innerHeight, d = 0; d < t.length; d++) { var a = t[d], n = a.el.getBoundingClientRect(), i = n.top / s, r = n.bottom / s; a.debug && (i >= 0 && i <= 1 && (a.startLine || (a.startLine = document.createElement("div"), document.body.appendChild(a.startLine), a.startLine.style = "position:fixed;height:0;width:100%;border-bottom:dotted red 2px;top:" + 100 * a.start + "vh")), (r < a.end || i > 1) && a.startLine && (a.startLine.parentNode.removeChild(a.startLine), delete a.startLine)), i < a.start && !a.started ? (a.started = !0, a.el.classList.add(e.classNames[1])) : i > a.start && a.started && (a.started = !1, a.el.classList.remove(e.classNames[1])), r < a.end && !a.ended ? (a.ended = !0, a.el.classList.add(e.classNames[2])) : r > a.end && a.ended && (a.ended = !1, a.el.classList.remove(e.classNames[2])) } } document.addEventListener("DOMContentLoaded", function () { e.autoInit && s() }), this.init = s, this.config = function (t) { for (var s in t) e[s] = t[s] } };
+
+$(function () {
+    //特集
+
+    //special/pikapika_center.html
+    if ($('#contents').hasClass('pikapika_center')) {
+        $.getScript("/static/js/special/pikapika_center.js");
+        $.getScript("https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js");
+    }
+
+    //special/campaign6903.html
+    if ($('#contents').hasClass('campaign6903')) {
+        $.getScript("/static/js/special/campaign6903.js");
+    }
+
+    //special/25NICOLE.html
+    if ($('#contents').hasClass('NICOLE')) {
+        $.getScript("/static/js/special/25NICOLE.js");
+    }
+
+    //special/25NICOLE_pre.html
+    if ($('#contents').hasClass('NICOLE_pre')) {
+        $.getScript("/static/js/special/25NICOLE_pre.js");
+    }
+
+    //special/admission_guide6902.html
+    if ($('#contents').hasClass('admission_guide6902')) {
+        $.getScript("/static/js/special/admission_guide6902.js");
+    }
+
+    //special/inteleon6900.html
+    if ($('#contents').hasClass('inteleon6900')) {
+        $.getScript("/static/js/special/inteleon6900.js");
+    }
+
+    //special/porter6898.html
+    if ($('#contents').hasClass('porter6898')) {
+        $.getScript("/static/js/special/porter6898.js");
+    }
+
+    //special/lucario6896.html
+    if ($('#contents').hasClass('lucario6896')) {
+        $.getScript("/static/js/special/lucario6896.js");
+    }
+
+    //special/christmas6894.html
+    if ($('#contents').hasClass('christmas6894')) {
+        $.getScript("/static/js/special/christmas6894.js");
+    }
+
+    //special/legends_arceusxxxx.html
+    if ($('#contents').hasClass('legends_arceus')) {
+        $.getScript("/static/js/special/legends_arceus6895.js");
+    }
+
+    //special/interior.html
+    if ($('#contents').hasClass('interior')) {
+        $.getScript("/static/js/special/interior.js");
+    }
+
+    //special/bdsp6892.html
+    if ($('#contents').hasClass('bdsp6892')) {
+        $.getScript("/static/js/special/bdsp6892.js");
+    }
+
+    //special/newpokemonsnap.html
+    if ($('#contents').hasClass('newpokemonsnap')) {
+        $.getScript("/static/js/special/newpokemonsnap.js");
+    }
+
+    //special/selfbagging.html
+    if ($('#contents').hasClass('selfbagging')) {
+        $.getScript("/static/js/special/selfbagging.js");
+    }
+
+    //special/crystalstone6893.html
+    if ($('#contents').hasClass('crystalstone6893')) {
+        $.getScript("/static/js/special/crystalstone6893.js");
+    }
+
+    //special/pol_welcome.html
+    if ($('#contents').hasClass('pol_welcome')) {
+        $.getScript("/static/js/special/pol_welcome.js");
+    }
+
+    //special/pokemonmasters-ex.html
+    if ($('#contents').hasClass('pokemonmasters-ex')) {
+        $.getScript("/static/js/special/pokemonmasters-ex.js");
+    }
+
+    //special/movie6889.html
+    if ($('#contents').hasClass('movie6889')) {
+        $.getScript("/static/js/special/movie6889.js");
+    }
+
+    //special/swsh_expansion6882.html
+    if ($('#contents').hasClass('swsh_expansion6882')) {
+        $.getScript("/static/js/special/swsh_expansion6882.js");
+    }
+
+    //special/cam6881.html
+    if ($('#contents').hasClass('cam6881')) {
+        $.getScript("/static/js/special/cam6881.js");
+    }
+    //special/cam6880.html
+    if ($('#contents').hasClass('cam6880')) {
+        $.getScript("/static/js/special/cam6880.js");
+    }
+
+    //special/phonecase6849.html
+    if ($('#contents').hasClass('phonecase6849')) {
+        $.getScript("/static/js/special/phonecase6849.js");
+    }
+    //special/movie6862.html
+    if ($('#contents').hasClass('movie6862')) {
+        $.getScript("/static/js/special/movie6862.js");
+    }
+    //special/wedding6864.html
+    if ($('#contents').hasClass('wedding6864')) {
+        $.getScript("/static/js/special/wedding6864.js");
+    }
+    //special/pika_vee6865.html
+    if ($('#contents').hasClass('pika_vee6865')) {
+        $.getScript("/static/js/special/pika_vee6865.js");
+    }
+    //special/my151cam.html
+    if ($('#contents').hasClass('my151cam')) {
+        $.getScript("/static/js/special/my151cam.js");
+    }
+    //special/pika_vee_howtoplay.html
+    if ($('#contents').hasClass('pika_vee_howtoplay')) {
+        $.getScript("/static/js/special/pika_vee_howtoplay.js");
+    }
+    //special/movie6875.html
+    if ($('#contents').hasClass('movie6875')) {
+        $.getScript("/static/js/special/movie6875.js");
+    }
+    //special/movie6876.html
+    if ($('#contents').hasClass('movie6876')) {
+        $.getScript("/static/js/special/movie6876.js");
+    }
+    //special/my251cam_top.html
+    if ($('#contents').hasClass('my251cam top')) {
+        $.getScript("/static/js/special/my251cam.js");
+    }
+    //special/my251cam_top.html
+    if ($('#contents').hasClass('my251cam top2')) {
+        $.getScript("/static/js/special/my251cam_top2.js");
+    }
+    //special/my251cam_info.html
+    if ($('#contents').hasClass('my251cam info')) {
+        $.getScript("/static/js/special/my251cam_info.js");
+    }
+    //special/my251cam_fit.html
+    if ($('#contents').hasClass('my251cam fit')) {
+        $.getScript("/static/js/special/slick.js");
+        $.getScript("/static/js/special/my251cam_fit.js");
+    }
+    //special/my251cam_sns.html
+    if ($('#contents').hasClass('my251cam sns')) {
+        $.getScript("/static/js/special/my251cam_sns.js");
+    }
+    //special/my251cam_summer.html
+    if ($('#contents').hasClass('my251cam summer')) {
+        Delighters.config({
+            end: 0,
+        });
+        $.getScript("/static/js/special/my251cam_summer.js");
+    }
+    //special/sword_shield6878.html
+    if ($('#contents').hasClass('sword_shield6878')) {
+        $.getScript("/static/js/special/sword_shield6878.js");
+    }
+
+});
