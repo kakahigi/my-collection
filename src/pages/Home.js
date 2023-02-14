@@ -141,8 +141,57 @@ const Home = () => {
         <div className="container-xxl">
           <div className="row">
             <div className="col-12">
-              <div className="categories d-flex justify-content-between align-items-center">
-                <div className="d-flex gap-30">
+              <div className="categories d-flex justify-content-between flex-wrap align-items-center">
+                <div className="d-flex gap align-items-center">
+                  <div>
+                    <h6>Mô hình</h6>
+                    <p>10 item</p>
+                  </div>
+                  <img src="images/rsz_goodsmile.jpg" alt="figure" />
+                </div>
+                <div className="d-flex gap align-items-center">
+                  <div>
+                    <h6>Mô hình</h6>
+                    <p>10 item</p>
+                  </div>
+                  <img src="images/rsz_goodsmile.jpg" alt="figure" />
+                </div>
+                <div className="d-flex gap align-items-center">
+                  <div>
+                    <h6>Mô hình</h6>
+                    <p>10 item</p>
+                  </div>
+                  <img src="images/rsz_goodsmile.jpg" alt="figure" />
+                </div>
+                <div className="d-flex gap align-items-center">
+                  <div>
+                    <h6>Mô hình</h6>
+                    <p>10 item</p>
+                  </div>
+                  <img src="images/rsz_goodsmile.jpg" alt="figure" />
+                </div>
+                <div className="d-flex gap align-items-center">
+                  <div>
+                    <h6>Mô hình</h6>
+                    <p>10 item</p>
+                  </div>
+                  <img src="images/rsz_goodsmile.jpg" alt="figure" />
+                </div>
+                <div className="d-flex gap align-items-center">
+                  <div>
+                    <h6>Mô hình</h6>
+                    <p>10 item</p>
+                  </div>
+                  <img src="images/rsz_goodsmile.jpg" alt="figure" />
+                </div>
+                <div className="d-flex gap align-items-center">
+                  <div>
+                    <h6>Mô hình</h6>
+                    <p>10 item</p>
+                  </div>
+                  <img src="images/rsz_goodsmile.jpg" alt="figure" />
+                </div>
+                <div className="d-flex gap align-items-center">
                   <div>
                     <h6>Mô hình</h6>
                     <p>10 item</p>
