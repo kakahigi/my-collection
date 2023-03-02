@@ -4,7 +4,7 @@ const BlogCard = () => {
   return (
     <div className="col-3">
       <div className="blog-card">
-        <img src="images/blog-1.jpg" alt="blog" />
+        <img src="images/blog-1.jpg" className="img-fluid" alt="blog" />
       </div>
     </div>
   );
